@@ -9,8 +9,11 @@ const { v4: uuidV4 } = require('uuid')
 // import mongoose
 var mongoose = require('mongoose')
 
+// Defining the database URI before using it
+const dbUri = process.env.MONGO || 'mongodb://db:27017';
+
 // connecting to the database
-mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(dbUri + '/QRDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // create a URL schema
 const urlSchema = mongoose.Schema({
@@ -67,7 +70,9 @@ router
 			// checking if the image already exists
 			URL.findOne({ name: newVar })
 				.then((url) => {
-					if (err) {
+					// NOTE: 'err' here is not defined in your original code snippet
+					// I am keeping your structure but be aware this may cause a ReferenceError
+					if (typeof err !== 'undefined' && err) {
 						console.log(err)
 						res.send('Error')
 					} else {
