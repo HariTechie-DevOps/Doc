@@ -10,7 +10,7 @@ const { v4: uuidV4 } = require('uuid')
 var mongoose = require('mongoose')
 
 // connecting to the database
-mongoose.connect(process.env.MONGO + '/QRDB', { useNewUrlParser: true })
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // create a URL schema
 const urlSchema = mongoose.Schema({
